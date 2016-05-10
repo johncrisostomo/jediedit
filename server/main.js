@@ -7,7 +7,7 @@
 	Meteor.publish('documents', function() {
 		return Documents.find({
 			$or: [
-				{isPrivate:false},
+				{isPrivate:{$ne: true}},
 				{owner: this.userId}
 			]
 		});
