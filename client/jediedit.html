@@ -1,7 +1,9 @@
-<head>
-	<title>JediEdit</title>
-</head>
+<template name="ApplicationLayout">
+  <head>
+	  <title>JediEdit</title>
+  </head>
 
-<body>
-	{{> navbar }}
-</body>
+  {{> yield "header"}}
+
+  {{> yield "main"}}
+</template>

@@ -2,6 +2,7 @@
 	Meteor.subscribe("documents");
 	Meteor.subscribe("editingUsers");
 
+
 	Template.editor.helpers({
 		docid: function() {
 			setupCurrentDocument();
@@ -35,6 +36,12 @@
 			return users;
 		}
 	});
+
+  Template.docList.helpers({
+    documents: function() {
+      return Documents.find();
+    }
+  });
 
 	Template.navbar.helpers({
 		documents: function() {
