@@ -1,7 +1,4 @@
-this.Documents = new Mongo.Collection('documents');
-EditingUsers = new Mongo.Collection('editingUsers');
 
-if (Meteor.isClient){
 	Meteor.subscribe("documents");
 	Meteor.subscribe("editingUsers");
 
@@ -96,64 +93,7 @@ if (Meteor.isClient){
 			Meteor.call("updateDocPrivacy", doc);
 		}
 	});
-}
 
-if (Meteor.isServer){
-	Meteor.startup(function(){
-		if (!Documents.findOne()) {
-			Documents.insert({title:"no one owns this", isPrivate:false});
-		}
-	});
-
-	Meteor.publish('documents', function() {
-		return Documents.find({
-			$or: [
-				{isPrivate:false},
-				{owner: this.userId}
-			]
-		});
-	});
-
-	Meteor.publish('editingUsers', function() {
-		return EditingUsers.find({});
-	});
-}
-
-Meteor.methods({
-	addEditingUser: function() {
-		var doc, user, eusers;
-		doc = Documents.findOne();
-		if (!doc) { return; }
-		if (!this.userId) { return; }
-		user =  Meteor.user().profile;
-		erusers = EditingUsers.findOne({docid:doc._id});
-		if (!eusers) {
-			eusers = {
-				docid: doc._id,
-				users: {}
-			};
-		}
-		user.lastEdit = new Date();
-		eusers.users[this.userId] = user;
-		EditingUsers.upsert({_id:eusers._id}, eusers);
-	},
-	addDoc: function() {
-		var doc;
-		if (!this.userId) {
-			return;
-		} else {
-			doc = {owner: this.userId, createdOn: new Date(), title:"my new doc", isPrivate: false};
-			var id = Documents.insert(doc);
-		}
-	},
-	updateDocPrivacy: function(doc) {
-		var realDoc = Documents.findOne({_id:doc._id, owner: this.userId});
-		if (realDoc) {
-			realDoc.isPrivate = doc.isPrivate;
-			Documents.update({_id:doc._id}, realDoc)
-		}
-	}
-});
 
 function setupCurrentDocument() {
 	var doc;
