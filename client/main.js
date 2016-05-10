@@ -75,6 +75,12 @@
 			}
 		}
 	});
+  
+  Template.insertCommentForm.helpers({
+    docid: function() {
+      return Session.get('docid');
+    }
+  });
 
 	Template.navbar.events({
 		"click .js-add-doc": function(event) {

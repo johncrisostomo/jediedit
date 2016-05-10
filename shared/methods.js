@@ -1,5 +1,13 @@
 
 Meteor.methods({
+  addComment: function(comment) {
+    if (this.userId) {
+      comment.createdOn = new Date();
+      comment.userId = this.userId;
+      return Comment.insert(comment);
+    }
+    return;
+  },
 	addEditingUser: function(docid) {
 		var doc, user, eusers;
 		doc = Documents.findOne({_id:docid});

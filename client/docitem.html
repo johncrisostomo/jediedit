@@ -18,6 +18,9 @@
 				{{> viewer}}
 			</div>
 		</div>
+    {{#if currentUser}}
+      {{> insertCommentForm }}
+    {{/if}}
 	</div>
 </template>
 
@@ -48,4 +51,21 @@
 	{{#each users}}
 		<span class="label label-success">{{firstname}}</span>
 	{{/each}}
+</template>
+
+<!-- <template name="insertCommentForm">
+  {{> quickForm collection="Comments" id="insertCommentForm" type="method" meteormethod="addComment"}}
+</template> -->
+
+<template name="insertCommentForm">
+  {{#autoForm collection="Comments" id="insertCommentForm" type="method"
+    meteormethod="addComment"}}
+    <fieldset>
+      <legend>Comment</legend>
+      {{> afQuickField name='title'}}
+      {{> afQuickField name='body' rows=6 value="Write your comment here"}}
+      {{> afQuickField name='docid' rows=6 value=docid type="hidden"}}
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  {{/autoForm}}
 </template>
