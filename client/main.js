@@ -88,9 +88,6 @@
 					}
 				});
 			}
-		},
-		"click .js-load-doc": function(event) {
-			Session.set('docid', this._id);
 		}
 	});
 

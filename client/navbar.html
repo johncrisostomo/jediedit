@@ -2,7 +2,7 @@
 <template name="navbar">
 	<nav class="navbar navbar-default navbar-fixed-top">
   	<div class="container">
-    	<a class="navbar-brand" href="#">JediEdit</a>
+    	<a class="navbar-brand" href="/">JediEdit</a>
 			<ul class="nav navbar-nav">
 				<li>
 					<a href="#" class="js-add-doc">
@@ -19,7 +19,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						{{#each documents}}
-						<li><a href="#" class="js-load-doc">{{title}}</a></li>
+						<li><a href="/documents/{{_id}}">{{title}}</a></li>
 						{{/each}}
 					</ul>
 				</li>
