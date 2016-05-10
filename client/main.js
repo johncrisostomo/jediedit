@@ -1,7 +1,7 @@
 
 	Meteor.subscribe("documents");
 	Meteor.subscribe("editingUsers");
-
+  Meteor.subscribe("comments");
 
 	Template.editor.helpers({
 		docid: function() {
@@ -75,10 +75,16 @@
 			}
 		}
 	});
-  
+
   Template.insertCommentForm.helpers({
     docid: function() {
       return Session.get('docid');
+    }
+  });
+
+  Template.commentList.helpers({
+    comments: function() {
+      return Comments.find({docid: Session.get("docid")});
     }
   });
 

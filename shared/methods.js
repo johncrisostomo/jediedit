@@ -2,9 +2,8 @@
 Meteor.methods({
   addComment: function(comment) {
     if (this.userId) {
-      comment.createdOn = new Date();
-      comment.userId = this.userId;
-      return Comment.insert(comment);
+      comment.owner = this.userId;
+      return Comments.insert(comment);
     }
     return;
   },
